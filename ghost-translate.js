@@ -1,6 +1,8 @@
 /**
-*   Name: Ghist Translate Plugin
-*   By: @osternaud_clem
+*   Name:           Ghost Translate Plugin
+*   By:             @osternaud_clem
+*   Description:    Ghost-Translate.js is a short jquery plugin to add several language into yout Ghost posts.
+*   Version:        0.0.3
 */
 
 (function ($) {
@@ -18,24 +20,28 @@
                 }
             ],
             "type_selector": "list",
-            "container": null,
+            "container": "post-content",
+            "excerpt": "post-text",
             "cookie": false
         },
             p = $.extend(defauts, options);
 
         return this.each(function () {
-            var that = $(this),
+            var container = $('.' + p.container),
+                excerpt = $('.' + p.excerpt),
                 defauts = p.lang[0].short,
-                allContent = $(this).html(),
-                regExp = new RegExp("== start ([^]+)");
+                allContent = container.html(),
+                regExp = new RegExp("== start ([^]+)");       
+            
+            format_excerpt(p.lang, container, excerpt);
 
             if (!regExp.exec(allContent)) {
                 return false;
             }
             
-            $(this).html('');
+            container.html('');
 
-            create_select(p.lang, p.type_selector, $(this));
+            create_select(p.lang, p.type_selector, container);
 
             $('.ghost-select-lang').after('<div class="ghost-translate-content"></div>');
 
@@ -95,6 +101,22 @@
                     $('.ghost-translate-content').html(get_translate(lang, content));
                 });
             }
+        }
+        
+        /**
+            Remove language tag of excerpt
+        **/
+        function format_excerpt(langs, content, excerpt) {
+            var excerpt_content = null;
+            
+            excerpt.each(function (val) {
+                excerpt_content = $(this);
+                 $.each(langs, function (val2) {
+                    excerpt_content.text(excerpt_content.text().replace('== start ' + langs[val2].short + ' ==', ''));
+                    excerpt_content.text(excerpt_content.text().replace('== end ' + langs[val2].short + ' ==', ''));
+                });
+            });
+           
         }
     };
 })(jQuery);

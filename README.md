@@ -12,7 +12,7 @@ To initialise the plugin, past this code into your main javascript file:
 
 **.post-content** is the post container find into *post.hbs* template.
 
-You can change some parameters:
+## Options
 
 ### Add language
 Define your language into the "lang" options:
@@ -34,6 +34,29 @@ Actualy, the plugin can create two type of selector: **List** or **Select**.
 To choose, change the "type_selector" option:
 ``"type_selector": "list" // or "select"``
 
+### Post content class
+``"container": "post-content"```
+
+### Home excerpt class
+``"excerpt": "post-text"``
+
+### Final code
+    $('.page-wrapper').ghostTranslate({
+        "lang": [
+            {
+                "name" : "Francais",
+                "short": "fr"
+            },
+            {
+                "name" : "English",
+                "short": "en"
+            }
+        ],
+        "type_selector": "list",
+        "container": "post-content",
+        "excerpt": "post-text"
+    });
+
 ## In your post
 Now the plugin is installed and initialized.
 In your Ghost post, separate each language with this:
@@ -47,6 +70,17 @@ In your Ghost post, separate each language with this:
     == end fr ==
 
 
-# TO-DO
+## TO-DO
 
 - add jquery.cookie
+
+## CHANGELOG
+
+### 0.0.3
+Format home excerpt
+
+### 0.0.2
+Check if any language is display
+
+### 0.0.1
+First commit
