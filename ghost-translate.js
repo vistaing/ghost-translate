@@ -31,7 +31,9 @@
                 excerpt = $('.' + p.excerpt),
                 defauts = p.lang[0].short,
                 allContent = container.html(),
-                regExp = new RegExp("== start ([^]+)");       
+                regExp = new RegExp("== start ([^]+)");
+            
+            if(p.cookie )
             
             format_excerpt(p.lang, container, excerpt);
 
